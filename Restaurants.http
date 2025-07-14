@@ -1,0 +1,31 @@
+@domain=http://localhost
+@port =5100
+@Restaurants_HostAddress = https://localhost:7100
+
+GET {{Restaurants_HostAddress}}/api/weatherforecast/
+Accept: application/json
+Project_URL: {{$projectUrl}}
+Guid: {{$guid}}
+CurrentDate: {{$datetime iso8601}}
+Random_Int: {{$randomInt}}
+
+###
+GET {{Restaurants_HostAddress}}/api/weatherforecast/today
+Accept: application/json
+Project_URL: {{$projectUrl}}
+Guid: {{$guid}}
+CurrentDate: {{$datetime iso8601}}
+Random_Int: {{$randomInt}}
+
+
+###
+
+POST {{Restaurants_HostAddress}}/api/weatherforecast/generate?maxResult=4
+Content-Type: application/json
+
+{
+  "MinTemperature": -3,
+  "MaxTemperature": 28
+}
+
+###
