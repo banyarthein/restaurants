@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Restaurants.Classes;
+using Restaurants.API.Classes;
 
-namespace Restaurants.Controllers
+namespace Restaurants.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
