@@ -5,12 +5,18 @@ using Restaurants.Infrastructure.Persistance;
 
 namespace Restaurants.Infrastructure.Respositories
 {
-    internal class RestaurantRepository(RestaurantsDBContext dBContext) : IRestaurantRepository
+    internal class RestaurantRepository(RestaurantsDBContext localDBContext) : IRestaurantRepository
     {
         public async Task<IEnumerable<Restaurant>> GetAllAsync()
         {
-            var restaurants = await dBContext.Restaurants.ToListAsync();
+            var restaurants = await localDBContext.Restaurants.ToListAsync();
             return restaurants;
+        }
+
+        public async Task<Restaurant> GetByIdAsync(int id)
+        {
+            var searchResult = await localDBContext.Restaurants.FirstOrDefaultAsync(r => r.Id == id);
+            return searchResult;
         }
     }
 }

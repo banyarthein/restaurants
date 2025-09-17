@@ -12,5 +12,12 @@ namespace Restaurants.Application.Services
             IEnumerable<Restaurant> restaurants = await repository.GetAllAsync();
             return restaurants;
         }
+
+        public async Task<Restaurant> GetByIdAsync(int id)
+        {
+            logger.LogInformation("Getting Restaurant by ID " + id.ToString());
+            Restaurant searchResult = await repository.GetByIdAsync(id);
+            return searchResult;
+        }
     }
 }
