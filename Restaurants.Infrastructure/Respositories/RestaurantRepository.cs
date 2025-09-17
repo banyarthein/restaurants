@@ -9,13 +9,17 @@ namespace Restaurants.Infrastructure.Respositories
     {
         public async Task<IEnumerable<Restaurant>> GetAllAsync()
         {
-            var restaurants = await localDBContext.Restaurants.ToListAsync();
+            var restaurants = await localDBContext.Restaurants
+                .Include(r => r.Dishes)
+                .ToListAsync();
             return restaurants;
         }
 
         public async Task<Restaurant> GetByIdAsync(int id)
         {
-            var searchResult = await localDBContext.Restaurants.FirstOrDefaultAsync(r => r.Id == id);
+            var searchResult = await localDBContext.Restaurants
+                .Include(r => r.Dishes)
+                .FirstOrDefaultAsync(r => r.Id == id);
             return searchResult;
         }
     }

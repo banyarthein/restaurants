@@ -19,10 +19,10 @@ GET {{Restaurants.API_HostAddress}}/api/restaurants
 
 ###
 
-GET {{Restaurants.API_HostAddress}}/api/restaurants/5
+GET {{Restaurants.API_HostAddress}}/api/restaurants/4
 
 ###
 
-GET {{Restaurants.API_HostAddress}}/api/restaurants/-1
+GET {{Restaurants.API_HostAddress}}/api/restaurants/10
 
 ###
