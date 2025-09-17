@@ -8,121 +8,120 @@ using Restaurants.Infrastructure.Persistance;
 
 #nullable disable
 
-namespace Restaurants.Infrastructure.Migrations
+namespace Restaurants.Infrastructure.Migrations;
+
+[DbContext(typeof(RestaurantsDBContext))]
+[Migration("20250720082018_Init")]
+partial class Init
 {
-    [DbContext(typeof(RestaurantsDBContext))]
-    [Migration("20250720082018_Init")]
-    partial class Init
+    /// <inheritdoc />
+    protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+        modelBuilder
+            .HasAnnotation("ProductVersion", "9.0.7")
+            .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+        SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Restaurants.Domain.Entities.Dish", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("Restaurants.Domain.Entities.Dish", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Description")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                b.Property<decimal>("Price")
+                    .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("RestaurantId")
-                        .HasColumnType("int");
+                b.Property<int>("RestaurantId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("RestaurantId");
+                b.HasIndex("RestaurantId");
 
-                    b.ToTable("Dishes");
-                });
+                b.ToTable("Dishes");
+            });
 
-            modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Category")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContactEmail")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ContactEmail")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContactNumber")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ContactNumber")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Description")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("HasDelivery")
-                        .HasColumnType("bit");
+                b.Property<bool>("HasDelivery")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Restaurants");
-                });
+                b.ToTable("Restaurants");
+            });
 
-            modelBuilder.Entity("Restaurants.Domain.Entities.Dish", b =>
-                {
-                    b.HasOne("Restaurants.Domain.Entities.Restaurant", null)
-                        .WithMany("Dishes")
-                        .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+        modelBuilder.Entity("Restaurants.Domain.Entities.Dish", b =>
+            {
+                b.HasOne("Restaurants.Domain.Entities.Restaurant", null)
+                    .WithMany("Dishes")
+                    .HasForeignKey("RestaurantId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>
-                {
-                    b.OwnsOne("Restaurants.Domain.Entities.Address", "Address", b1 =>
-                        {
-                            b1.Property<int>("RestaurantId")
-                                .HasColumnType("int");
+        modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>
+            {
+                b.OwnsOne("Restaurants.Domain.Entities.Address", "Address", b1 =>
+                    {
+                        b1.Property<int>("RestaurantId")
+                            .HasColumnType("int");
 
-                            b1.Property<string>("City")
-                                .HasColumnType("nvarchar(max)");
+                        b1.Property<string>("City")
+                            .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("PostalCode")
-                                .HasColumnType("nvarchar(max)");
+                        b1.Property<string>("PostalCode")
+                            .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("Street")
-                                .HasColumnType("nvarchar(max)");
+                        b1.Property<string>("Street")
+                            .HasColumnType("nvarchar(max)");
 
-                            b1.HasKey("RestaurantId");
+                        b1.HasKey("RestaurantId");
 
-                            b1.ToTable("Restaurants");
+                        b1.ToTable("Restaurants");
 
-                            b1.WithOwner()
-                                .HasForeignKey("RestaurantId");
-                        });
+                        b1.WithOwner()
+                            .HasForeignKey("RestaurantId");
+                    });
 
-                    b.Navigation("Address");
-                });
+                b.Navigation("Address");
+            });
 
-            modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>
-                {
-                    b.Navigation("Dishes");
-                });
+        modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>
+            {
+                b.Navigation("Dishes");
+            });
 #pragma warning restore 612, 618
-        }
     }
 }

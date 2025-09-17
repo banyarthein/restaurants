@@ -1,23 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurants.Domain.Repositories;
 using Restaurants.Infrastructure.Persistance;
+using Restaurants.Infrastructure.Respositories;
 using Restaurants.Infrastructure.Seeder;
 
-namespace Restaurants.Infrastructure.Extensions
+namespace Restaurants.Infrastructure.Extensions;
+
+public static class ServicesExtension
 {
-    public static class ServicesExtension
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            // Registering DbContext with SQL Server            
-            string connectionString = configuration.GetConnectionString("RestaurantDB");
-            services.AddDbContext<RestaurantsDBContext>(options => options.UseSqlServer(connectionString));
+        // Registering DbContext with SQL Server            
+        string connectionString = configuration.GetConnectionString("RestaurantDB");
+        services.AddDbContext<RestaurantsDBContext>(options => options.UseSqlServer(connectionString));
 
-            // Registering the seeder
-            services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
+        // Registering the seeder
+        services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
+        services.AddScoped<IRestaurantRepository, RestaurantRepository>();
 
-            return services;
-        }
+        return services;
     }
 }
