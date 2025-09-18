@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Restaurants.Application.DTOs;
+using Restaurants.Application.DTOs.Dishes;
 using Restaurants.Domain.Entities;
 
 namespace Restaurants.Application.MapingProfiles;

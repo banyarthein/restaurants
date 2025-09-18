@@ -11,6 +11,7 @@ public static class ServiceExtension
 
         // Registering the seeder
         services.AddScoped<IRestaurantsService, RestaurantsService>();
+
         services.AddAutoMapper(cfg =>
         {
             cfg.AddProfile(new RestaurantProfile());
