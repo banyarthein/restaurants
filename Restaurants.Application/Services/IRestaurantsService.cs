@@ -1,10 +1,9 @@
-﻿using Restaurants.Application.DTO;
+﻿using Restaurants.Application.DTOs;
 
-namespace Restaurants.Application.Services
+namespace Restaurants.Application.Services;
+
+public interface IRestaurantsService
 {
-    public interface IRestaurantsService
-    {
-        Task<RestaurantDTO> GetByIdAsync(int id);
-        Task<IEnumerable<RestaurantDTO>> GetAllAsync();
-    }
+    Task<RestaurantDTO> GetByIdAsync(int id);
+    Task<IEnumerable<RestaurantDTO>> GetAllAsync();
 }

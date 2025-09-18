@@ -1,28 +1,30 @@
-﻿using Microsoft.Extensions.Logging;
-using Restaurants.Application.DTO;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
+using Restaurants.Application.DTOs;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.Repositories;
 
-namespace Restaurants.Application.Services
+namespace Restaurants.Application.Services;
+
+internal class RestaurantsService(IRestaurantRepository repository,
+                                    ILogger<RestaurantsService> logger,
+                                    IMapper mapper) : IRestaurantsService
 {
-    internal class RestaurantsService(IRestaurantRepository repository, ILogger<RestaurantsService> logger) : IRestaurantsService
+    public async Task<IEnumerable<RestaurantDTO>> GetAllAsync()
     {
-        public async Task<IEnumerable<RestaurantDTO>> GetAllAsync()
-        {
-            logger.LogInformation("Getting all restaurants");
-            IEnumerable<Restaurant> restaurants = await repository.GetAllAsync();
+        logger.LogInformation("Getting all restaurants");
+        IEnumerable<Restaurant> restaurants = await repository.GetAllAsync();
+        IEnumerable<RestaurantDTO> restaurantDTOs = mapper.Map<IEnumerable<RestaurantDTO>>(restaurants);
 
-            IEnumerable<RestaurantDTO> restaurantDTOs = restaurants.Select(RestaurantDTO.MapFromEntity);
+        return restaurantDTOs;
+    }
 
-            return restaurantDTOs;
-        }
+    public async Task<RestaurantDTO> GetByIdAsync(int id)
+    {
+        logger.LogInformation("Getting Restaurant by ID " + id.ToString());
+        Restaurant restaurantFound = await repository.GetByIdAsync(id);
+        RestaurantDTO restaurantDTO = mapper.Map<RestaurantDTO>(restaurantFound);
 
-        public async Task<RestaurantDTO> GetByIdAsync(int id)
-        {
-            logger.LogInformation("Getting Restaurant by ID " + id.ToString());
-            Restaurant searchResult = await repository.GetByIdAsync(id);
-            RestaurantDTO restaurantDTO = RestaurantDTO.MapFromEntity(searchResult);
-            return restaurantDTO;
-        }
+        return restaurantDTO;
     }
 }
