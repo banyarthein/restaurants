@@ -29,17 +29,8 @@ GET {{Restaurants.API_HostAddress}}/api/restaurants/10
 
 POST {{Restaurants.API_HostAddress}}/api/restaurants
 Content-Type: application/json
-
 {
-  "Name": "KFC @Junction10",
-  "Description": "Famous fast-food chain known for fried chicken",
-  "Category": "Fast Food",
-  "HasDelivery": true,
-  "ContactEmail": "contact@kfcjunction10.com",
-  "ContactNumber": "+65-6123-4567",
-  "City": "Singapore",
-  "Street": "123 Bukit Panjang Road",
-  "PostalCode": "238838"
 }
 
 ###
+GET {{Restaurants.API_HostAddress}}/api/restaurants/7

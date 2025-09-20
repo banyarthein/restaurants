@@ -1,10 +1,10 @@
 ﻿namespace Restaurants.Application.DTOs.Restaurants;
 public class RestaurantAddDTO
 {
-    public string Name { get; set; } = default;
-    public string Description { get; set; } = default;
-    public string Category { get; set; } = default;
-    public bool HasDelivery { get; set; }
+    public string Name { get; set; } = default!;
+    public string Description { get; set; } = default!;
+    public string Category { get; set; } = default!;
+    public bool HasDelivery { get; set; } = default!;
     public string ContactEmail { get; set; } = default;
     public string ContactNumber { get; set; } = default;
 
